@@ -1,0 +1,12 @@
+.field-box {
+  border: 0;
+  box-shadow: 2px 2px 4px 1px rgba(0, 0, 29, 0.22);
+  border-radius: 3px;
+  margin: .8rem;
+}
+
+.plus-icon {
+  box-shadow: 2px 2px 4px 1px rgba(0, 0, 29, 0.22);
+  border-radius: 3px;
+  margin-left: .5rem;
+}

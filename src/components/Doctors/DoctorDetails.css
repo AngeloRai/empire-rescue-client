@@ -1,0 +1,61 @@
+
+
+
+.main-doctor-card {
+  border-radius: 3px;
+  box-shadow: 3px 3px 6px 0 rgba(0, 0, 29, 0.22);
+  margin: .5rem;
+  padding: 1rem;
+}
+
+.doctor-name {
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: .7rem;
+}
+
+.doctor-contact {
+  padding: .5rem;
+  
+}
+
+.doctor-contact-list {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.doctor-contatct-box {
+  margin-bottom: 1.5rem;
+}
+
+.association-box {
+  padding: .3rem;
+  border: solid 1px rgb(235, 216, 216);
+  margin: .2rem
+}
+
+.appointment-box {
+  
+  margin: .1rem 0 0 .4rem;
+}
+.doc-spec-fac {
+  padding: .3rem;
+  border: solid 1px rgb(235, 216, 216);
+  margin: .2rem
+  
+}
+
+.doctor-edit-delete-box{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.doctor-edit-delete {
+  padding: 1rem;
+  font-size: 1.4rem;
+}
+
+

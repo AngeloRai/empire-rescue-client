@@ -1,0 +1,23 @@
+.edit-buttons-box {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.field-box {
+  border: 0;
+  box-shadow: 2px 2px 4px 1px rgba(0, 0, 29, 0.22);
+  border-radius: 3px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+

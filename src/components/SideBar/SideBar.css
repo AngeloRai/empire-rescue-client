@@ -1,0 +1,28 @@
+.side-bar-container {
+  padding: .7rem;
+  min-width: 11rem;
+  min-height: 100vh;
+  background: #3b1616
+}
+
+.side-bar-list li a {
+  color: #d3b3b5;
+  text-decoration: none;
+}
+
+.side-bar-list li {
+  border-radius: 5px;
+  padding: .5rem;
+  margin: 5px;
+  border: solid rgb(121, 108, 108) 1px;
+  box-shadow: 1px 1px 2px 1px rgba(153, 153, 167, 0.22);
+}
+
+.side-bar-list a:hover, a:focus {
+  color: #9c878b;
+  text-decoration: none;
+}
+
+.current-page {
+  color: antiquewhite;
+}

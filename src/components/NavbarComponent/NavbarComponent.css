@@ -1,0 +1,18 @@
+.logo {
+  width: 50vw;
+  min-width: 20rem;
+  padding-left: 3rem;
+}
+
+.humburger {
+  margin-right: 1rem;
+}
+
+.nav-bar {
+  display: block;
+  background-color: #fdf1e5;
+}
+
+.navbar-brand {
+
+}

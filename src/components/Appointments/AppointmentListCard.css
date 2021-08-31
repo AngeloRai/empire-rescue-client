@@ -1,0 +1,87 @@
+
+.appointment-card {
+  padding: 0;
+  max-height: 6.375rem;
+  margin: .5rem 0;
+  
+}
+
+
+.appointment-inner-card {
+  margin: .6rem;
+  padding: .5rem;
+  border-radius: 6px;
+}
+
+.badgets-fixed-height-c {
+  height: 1.1rem;
+  margin: .05rem;
+  font-size: 10px;
+  
+}
+.appointment-name-unit {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.text-upper-strong {
+  font-size: .7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.text-small {
+  font-size: .8rem;
+}
+
+
+
+.phone-icon {
+  font-size: .8rem;
+  margin-right: .3rem;
+  color: rgb(66, 82, 82);
+}
+
+.appointment-add-link {
+  display: inline-block;
+  margin-bottom: .8rem;
+  background-color: #98c4d1;
+  border-radius: 3px;
+  border: solid 1px #c4b4b5;
+  box-shadow: 3px 2px 2px 2px rgba(0, 0, 29, 0.22);
+  padding: .3rem;
+}
+
+.appointment-link {
+  color: #443334;
+  text-decoration: none;
+}
+
+.appointment-link:hover {
+  color: orange;
+  text-decoration: none;
+}
+
+.appointment-add-link-box {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .appointment-card {
+    padding: 0;
+    max-height: 8rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
