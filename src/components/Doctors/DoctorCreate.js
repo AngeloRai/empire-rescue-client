@@ -55,7 +55,7 @@ function DoctorCreate() {
     } catch (err) {
       console.log(err);
     }
-    history.push("/medicos");
+    //history.push("/medicos");
   };
 
   return (

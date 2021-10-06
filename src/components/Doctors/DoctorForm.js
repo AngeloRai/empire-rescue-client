@@ -222,7 +222,7 @@ function DoctorForm({
                 <button
                   type="submit"
                   className="btn btn-secondary"
-                  disabled={isSubmitting || !values.name || !values.crm || !values.phone1}
+                  // disabled={isSubmitting || !values.name || !values.crm || !values.phone1}
                 >
                   <div>
                     {isSubmitting ? <span>Loading</span> : <span>Salvar</span>}
