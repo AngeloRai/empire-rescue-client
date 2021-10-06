@@ -70,14 +70,14 @@ function App() {
             <ProtectedRoute exact path="/estabelecimento-editar/:id" component={FacilityEdit} />
             <ProtectedRoute exact path="/estabelecimentos" component={FacilitiesList} />
             <ProtectedRoute exact path="/estabelecimento-detalhes/:id" component={FacilityDetails} />
-            <ProtectedRoute exact path="/exames" component={ExamList} />
-            <ProtectedRoute exact path="/exame/:id" component={ExamDetails} />
-            <ProtectedRoute exact path="/editar-exame/:id" component={ExamEdit} />
-            <ProtectedRoute exact path="/adicionar-exame" component={ExamCreate} />
-            <ProtectedRoute exact path="/especialidades" component={SpecialtyList} />
-            <ProtectedRoute exact path="/adicionar-especialidade" component={SpecialtyCreate} />
-            <ProtectedRoute exact path="/especialidade/:id" component={SpecialtyDetails} />
-            <ProtectedRoute exact path="/editar-specialidade/:id" component={SpecialtyEdit} />
+            <Route exact path="/exames" component={ExamList} />
+            <Route exact path="/exame/:id" component={ExamDetails} />
+            <Route exact path="/editar-exame/:id" component={ExamEdit} />
+            <Route exact path="/adicionar-exame" component={ExamCreate} />
+            <Route exact path="/especialidades" component={SpecialtyList} />
+            <Route exact path="/adicionar-especialidade" component={SpecialtyCreate} />
+            <Route exact path="/especialidade/:id" component={SpecialtyDetails} />
+            <Route exact path="/editar-specialidade/:id" component={SpecialtyEdit} />
             <ProtectedRoute exact path="/gerar-agendamento" component={AppointmentCreate} />
             <ProtectedRoute exact path="/agendamentos" component={AppointmentList} />
             <ProtectedRoute exact path="/editar-agendamento/:id" component={AppointmentEdit} />
