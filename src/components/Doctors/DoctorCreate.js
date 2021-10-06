@@ -43,19 +43,15 @@ function DoctorCreate() {
   }, []);
 
   const handleSubmit = async (values) => {
-    //extract ids only from speacilaties and facilties  to send to post request
-    // const facilityIds = selectedFacilities.map((facility) =>
-    //   Number(facility.value)
-    // );
-    // const specialtyIds = selectedSpecialties.map((specialty) =>
-    //   Number(specialty.value)
-    // );
+
     try {
-      await api.post("/doctor", {
+      const doctor = await api.post("/doctor", {
         specialties: selectedSpecialties,
         facilities: selectedFacilities,
         ...values,
       });
+      console.log(values);
+      console.log(doctor);
     } catch (err) {
       console.log(err);
     }

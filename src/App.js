@@ -54,8 +54,8 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/cadastro" component={Signup} />
 
-            <ProtectedRoute exact path="/medicos" component={DoctorList} />
-            <ProtectedRoute exact path="/adicionar-medico" component={DoctorCreate} />
+            <Route exact path="/medicos" component={DoctorList} />
+            <Route exact path="/adicionar-medico" component={DoctorCreate} />
             <ProtectedRoute exact path="/medico-detalhes/:id" component={DoctorDetails} />
             <ProtectedRoute exact path="/medico-editar/:id" component={DoctorEdit} />
             <ProtectedRoute exact path="/usuarios" component={UsersList} />
