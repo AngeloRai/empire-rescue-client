@@ -6,7 +6,7 @@ const apis = {
   };
 
 export const api = axios.create({ 
-    baseURL: apis[process.env.NODE_ENV],
+    baseURL: "https://empire-rescue.herokuapp.com",
   });
 
 export const cepApi = axios.create({

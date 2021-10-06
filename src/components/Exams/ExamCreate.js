@@ -11,8 +11,9 @@ const history = useHistory();
 async function handleSubmit(values) {
   console.log(values);
   try {
-    await api.post("/exam", values);
-
+    const exam = await api.post("/exam", values);
+    console.log(exam);
+    
     history.push("/exames");
   } catch (err) {
     console.error("This is Exam Post ERROR", err);
