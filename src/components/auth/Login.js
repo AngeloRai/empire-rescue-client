@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
 import UserFormIput from "./UserFormIput";
 
@@ -46,7 +46,7 @@ function Login() {
       <h1>Login</h1>
 
       <UserFormIput handleSubmit={handleSubmit} error={error}/>
-      
+      <p>Ainda não tem uma conta? <Link to="/cadastro">Cadastre.</Link></p>
 
     </div>
   );

@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
 import SideBar from "./components/SideBar/SideBar";
 import Login from "./components/auth/Login";
+import Signup from "./components/auth/Signup"
 import DoctorCreate from "./components/Doctors/DoctorCreate";
 import DoctorEdit from "./components/Doctors/DoctorEdit";
 import DoctorList from "./components/Doctors/DoctorList";
@@ -51,6 +52,8 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/cadastro" component={Signup} />
+
             <ProtectedRoute exact path="/medicos" component={DoctorList} />
             <ProtectedRoute exact path="/adicionar-medico" component={DoctorCreate} />
             <ProtectedRoute exact path="/medico-detalhes/:id" component={DoctorDetails} />
