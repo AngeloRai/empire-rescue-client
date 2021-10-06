@@ -1,3 +1,6 @@
+## DEMO 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4f6483f7-e88a-4afc-a626-ca3fc08cd0da/deploy-status)](https://app.netlify.com/sites/empire-rescue/deploys)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
