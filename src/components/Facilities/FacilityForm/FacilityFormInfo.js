@@ -1,8 +1,7 @@
 import React from "react";
 import { Field, ErrorMessage } from "formik";
 import Select from "react-select";
-import './FacilityForm.css'
-
+import "./FacilityForm.css";
 
 import InputFeedback from "../../componentHelpers/InputFeedback";
 function FacilityFormInfo({
@@ -92,71 +91,66 @@ function FacilityFormInfo({
             closeMenuOnSelect={false}
           />
         </div>
-                
 
         <div className="col-8 col-md-8 col-lg-12 row mx-2">
-        <div className="form-check checkbox-item col-8 col-md-6 col-lg-3">
-          
-          <label className="form-check-label" htmlFor="flexCheckChecked">
-            <input
-            className="form-check-input"
-            type="checkbox"
-            name="emergency"
-            checked={values.emergency}
-            onChange={(e) => setFieldValue("emergency", e.target.checked)}
-            id="flexCheckChecked"
-          />
-          <span className="badge bg-danger text-white details-badgets-fixed-height-c">
-                  PRONTO ATENDIMENTO
-                </span>
-          </label>
-        </div>
           <div className="form-check checkbox-item col-8 col-md-6 col-lg-3">
-           
-            <label className="form-check-label" htmlFor="flexCheckChecked"> 
-            <input
-              className="form-check-input"
-              type="checkbox"
-              name="clinic"
-              checked={values.clinic}
-              onChange={(e) => setFieldValue("clinic", e.target.checked)}
-              id="flexCheckChecked"
-            />
+            <label className="form-check-label" htmlFor="flexCheckChecked">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                name="emergency"
+                checked={values.emergency}
+                onChange={(e) => setFieldValue("emergency", e.target.checked)}
+                id="flexCheckChecked"
+              />
+              <span className="badge bg-danger text-white details-badgets-fixed-height-c">
+                PRONTO ATENDIMENTO
+              </span>
+            </label>
+          </div>
+          <div className="form-check checkbox-item col-8 col-md-6 col-lg-3">
+            <label className="form-check-label" htmlFor="flexCheckChecked">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                name="clinic"
+                checked={values.clinic}
+                onChange={(e) => setFieldValue("clinic", e.target.checked)}
+                id="flexCheckChecked"
+              />
               <span className="badge bg-primary text-white details-badgets-fixed-height-c">
-                  CONSULTURIO
-                </span>
+                CONSULTÓRIO
+              </span>
             </label>
           </div>
           <div className="form-check checkbox-item col-8 col-md-6 col-lg-3">
-            
             <label className="form-check-label" htmlFor="flexCheckChecked">
               <input
-              className="form-check-input"
-              type="checkbox"
-              name="hospital"
-              checked={values.hospital}
-              onChange={(e) => setFieldValue("hospital", e.target.checked)}
-              id="flexCheckChecked"
-            />
-            <span className="badge bg-success text-white details-badgets-fixed-height-c">
-                  HOSPITAL
-                </span>
+                className="form-check-input"
+                type="checkbox"
+                name="hospital"
+                checked={values.hospital}
+                onChange={(e) => setFieldValue("hospital", e.target.checked)}
+                id="flexCheckChecked"
+              />
+              <span className="badge bg-success text-white details-badgets-fixed-height-c">
+                HOSPITAL
+              </span>
             </label>
           </div>
           <div className="form-check checkbox-item col-8 col-md-6 col-lg-3">
-            
             <label className="form-check-label" htmlFor="flexCheckChecked">
               <input
-              className="form-check-input"
-              type="checkbox"
-              name="laboratory"
-              checked={values.laboratory}
-              onChange={(e) => setFieldValue("laboratory", e.target.checked)}
-              id="flexCheckChecked"
-            />
-            <span className="badge bg-info text-white details-badgets-fixed-height-c">
-                  LABORATORIO
-                </span>
+                className="form-check-input"
+                type="checkbox"
+                name="laboratory"
+                checked={values.laboratory}
+                onChange={(e) => setFieldValue("laboratory", e.target.checked)}
+                id="flexCheckChecked"
+              />
+              <span className="badge bg-info text-white details-badgets-fixed-height-c">
+                LABORATORIO
+              </span>
             </label>
           </div>
         </div>

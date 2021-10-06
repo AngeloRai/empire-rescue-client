@@ -1,7 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import NavbarComponent from "./components/NavbarComponent/NavbarComponent";
 import SideBar from "./components/SideBar/SideBar";
+import Login from "./components/auth/Login";
 import DoctorCreate from "./components/Doctors/DoctorCreate";
 import DoctorEdit from "./components/Doctors/DoctorEdit";
 import DoctorList from "./components/Doctors/DoctorList";
@@ -12,49 +15,75 @@ import ExamList from "./components/Exams/ExamList";
 import SpecialtyList from "./components/Specialties/SpecialtyList";
 import SpecialtyCreate from "./components/Specialties/SpecialtyCreate";
 import SpecialtyDetails from "./components/Specialties/SpecialtyDetails";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import FacilitiesList from "./components/Facilities/FacilitiesList";
 import FacilityEdit from './components/Facilities/FacilityEdit'
 import FacilityDetails from "./components/Facilities/FacilityDetails";
 import ExamDetails from "./components/Exams/ExamDetails";
 import AppointmentCreate from "./components/Appointments/AppointmentForm/AppointmentCreate"
-import Users from "./components/Users/Users"
-import AppointmentList from "./components/Appointments/AppointmentList";
+import AppointmentList from "./components/Appointments/AppointmentList/AppointmentList"
 import AppointmentEdit from "./components/Appointments/AppointmentForm/AppointmentEdit";
+import AppointmentDetails from "./components/Appointments/AppointmentDetails/AppointmentDetails";
+import ExamEdit from "./components/Exams/ExamEdit";
+import SpecialtyEdit from "./components/Specialties/SpecialtyEdit";
+import PatientList from "./components/UserPatient/Patients/PatientsList";
+import UserPatientCreate from "./components/UserPatient/UserPatientCreate";
+import PatientEdit from "./components/UserPatient/Patients/PatientEdit";
+import PatientDetails from "./components/UserPatient/Patients/PatientDetails";
+import UserCreate from "./components/UserPatient/Users/UserCreate";
+import UsersList from "./components/UserPatient/Users/UsersList";
+import UserEdit from "./components/UserPatient/Users/UserEdit";
+import Home from "./components/Home/Home";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import { AuthContextComponent } from "./contexts/authContext";
+import UserDetails from "./components/UserPatient/Users/UserDetails";
 
 
 function App() {
   return (
     <BrowserRouter className="App">
-      <NavbarComponent />
+    <AuthContextComponent>
 
+      <NavbarComponent />
       <div style={{ display: "flex" }}>
+
         <SideBar />
         <div style={{ flex: 1, padding: "10px" }}>
           <Switch>
-            <Route exact path="/usuario" component={Users} />
-            <Route exact path="/medicos" component={DoctorList} />
-            <Route exact path="/adicionar-medico" component={DoctorCreate} />
-            <Route exact path="/medico-detalhes/:id" component={DoctorDetails} />
-            <Route exact path="/medico-editar/:id" component={DoctorEdit} />
-            <Route exact path="/adicionar-estabelecimento" component={FacilityCreate} />
-            <Route exact path="/estabelecimento-editar/:id" component={FacilityEdit} />
-            <Route exact path="/estabelecimentos" component={FacilitiesList} />
-            <Route exact path="/estabelecimento-detalhes/:id" component={FacilityDetails} />
-            <Route exact path="/exames" component={ExamList} />
-            <Route exact path="/exame/:id" component={ExamDetails} />
-            <Route exact path="/adicionar-exame" component={ExamCreate} />
-            <Route exact path="/especialidades" component={SpecialtyList} />
-            <Route exact path="/adicionar-especialidade" component={SpecialtyCreate} />
-            <Route exact path="/especialidade/:id" component={SpecialtyDetails} />
-            <Route exact path="/gerar-agendamento" component={AppointmentCreate} />
-            <Route exact path="/agendamentos" component={AppointmentList} />
-            <Route exact path="/editar-agendamento/:id" component={AppointmentEdit} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <ProtectedRoute exact path="/medicos" component={DoctorList} />
+            <ProtectedRoute exact path="/adicionar-medico" component={DoctorCreate} />
+            <ProtectedRoute exact path="/medico-detalhes/:id" component={DoctorDetails} />
+            <ProtectedRoute exact path="/medico-editar/:id" component={DoctorEdit} />
+            <ProtectedRoute exact path="/usuarios" component={UsersList} />
+            <ProtectedRoute exact path="/detalhes-usuario/:id" component={UserDetails} />
+            <ProtectedRoute exact path="/adicionar-usuario" component={UserCreate} />
+            <ProtectedRoute exact path="/editar-usuario/:id" component={UserEdit} />
+            <ProtectedRoute exact path="/pacientes" component={PatientList} />
+            <ProtectedRoute exact path="/detalhes-paciente/:id" component={PatientDetails} />
+            <ProtectedRoute exact path="/editar-paciente/:id" component={PatientEdit} />
+            <ProtectedRoute exact path="/adicionar-paciente" component={UserPatientCreate} />
+            <ProtectedRoute exact path="/adicionar-estabelecimento" component={FacilityCreate} />
+            <ProtectedRoute exact path="/estabelecimento-editar/:id" component={FacilityEdit} />
+            <ProtectedRoute exact path="/estabelecimentos" component={FacilitiesList} />
+            <ProtectedRoute exact path="/estabelecimento-detalhes/:id" component={FacilityDetails} />
+            <ProtectedRoute exact path="/exames" component={ExamList} />
+            <ProtectedRoute exact path="/exame/:id" component={ExamDetails} />
+            <ProtectedRoute exact path="/editar-exame/:id" component={ExamEdit} />
+            <ProtectedRoute exact path="/adicionar-exame" component={ExamCreate} />
+            <ProtectedRoute exact path="/especialidades" component={SpecialtyList} />
+            <ProtectedRoute exact path="/adicionar-especialidade" component={SpecialtyCreate} />
+            <ProtectedRoute exact path="/especialidade/:id" component={SpecialtyDetails} />
+            <ProtectedRoute exact path="/editar-specialidade/:id" component={SpecialtyEdit} />
+            <ProtectedRoute exact path="/gerar-agendamento" component={AppointmentCreate} />
+            <ProtectedRoute exact path="/agendamentos" component={AppointmentList} />
+            <ProtectedRoute exact path="/editar-agendamento/:id" component={AppointmentEdit} />
+            <ProtectedRoute exact path="/agendamento-detalhes/:id" component={AppointmentDetails} />
             
           </Switch>
         </div>
       </div>
+      </AuthContextComponent>
     </BrowserRouter>
   );
 }

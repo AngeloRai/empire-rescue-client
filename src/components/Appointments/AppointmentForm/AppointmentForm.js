@@ -1,8 +1,9 @@
 import React from "react";
 import { Formik, Form } from "formik";
+import moment from "moment";
 import "./AppointmentForm.css";
-import Users from "../../Users/Users";
-import Patients from "../../Patients/Patients";
+import UserCreate from "../AppointmentUserForm/UserCreate";
+import PatientCreate from "../../UserPatient/Patients/PatientCreate";
 import AppointmentStatus from "./AppointmentStatus";
 import AppointmentDateTime from "./AppointmentDateTime";
 import AppointmentDoctor from "./AppointmentDoctor";
@@ -12,20 +13,18 @@ import AppointmentType from "./AppointmentType";
 import AppointmentPatient from "./AppointmentPatient";
 import AppointmentUser from "./AppointmentUser";
 import DisplayPatient from "./DisplayPatient";
-import AppintmentExam from "./AppintmentExam";
+import AppintmentExam from "./AppointmentExam";
 
 function DoctorForm({
   handleSubmit,
   users,
   selectedUser,
   setSelectedUser,
-  patient,
   patients,
   setSelectedPatient,
   specialtyOptions,
   setSelectedSpecialty,
   setSelectedFacility,
-  setDocOptions,
   facilityOptions,
   docOptions,
   setSelectedAppointType,
@@ -42,16 +41,26 @@ function DoctorForm({
   setSelectedExam,
   examOptions,
   selectedAppointType,
+  user,
+  patient,
+  appointType,
+  exam,
+  specialty,
+  facility,
+  doctor,
+  dateTime,
+  status,
 }) {
+
   return (
     <div>
       {toggleCreateUser && !toggleCreatePatient && (
-        <Users setToggled={setToggleCreateUser} />
+        <UserCreate setToggled={setToggleCreateUser} />
       )}
       {toggleCreatePatient && !toggleCreateUser && (
-        <Patients
+        <PatientCreate
           address={[]}
-          patient={patient}
+          patient={[]}
           setToggled={setToggleCreatePatient}
           toggled={toggleCreatePatient}
           userId={selectedUser}
@@ -60,11 +69,16 @@ function DoctorForm({
 
       <Formik
         initialValues={{
-          status: "pendente",
-          dateTime: "date",
+          status: status || "pendente",
+          dateTime: dateTime || "",
         }}
         onSubmit={(values, { setSubmitting }) => {
-          handleSubmit(values);
+          const treatedValues = {
+            status: values.status,
+            dateTime: moment(values.dateTime).subtract(3, "hours").format() || "",
+          }
+          
+          handleSubmit(treatedValues);
           setSubmitting(false);
         }}
       >
@@ -73,6 +87,7 @@ function DoctorForm({
             <div className="row">
               <hr />
               <AppointmentUser
+                user={user}
                 users={users}
                 setSelectedUser={setSelectedUser}
                 handleNewUserToggle={handleNewUserToggle}
@@ -81,11 +96,12 @@ function DoctorForm({
 
               <AppointmentPatient
                 patients={patients}
+                patient={patient}
                 selectedUser={selectedUser}
                 setSelectedPatient={setSelectedPatient}
                 handleToggleNewPatient={handleToggleNewPatient}
                 showMessage={showMessage}
-                defaultValue={[]}
+                
               />
               {/* When patient is selected, patient info is displayed props coming from AppointmentCreate and sent to DisplayPatient */}
               {selectedPatient && displaySelectedPatient && (
@@ -94,48 +110,52 @@ function DoctorForm({
                 />
               )}
 
-              <AppointmentType
+             {selectedPatient && <AppointmentType
                 setSelectedAppointType={setSelectedAppointType}
-                defaultValue={[]}
-              />
+                appointType={appointType}
+              />}
 
-              {selectedAppointType === "exame" && (
+              {selectedPatient && selectedAppointType === "exame" && (
                 <AppintmentExam
                   examOptions={examOptions}
                   setSelectedExam={setSelectedExam}
+                  exam={exam}
                 />
               )}
 
-              {selectedAppointType === "consulta" && (
+              {selectedPatient && selectedAppointType === "consulta" && (
                 <AppointmentSpecialty
                   specialtyOptions={specialtyOptions}
                   setSelectedSpecialty={setSelectedSpecialty}
-                  defaultValue={[]}
+                  specialty={specialty}
                 />
               )}
 
-              {selectedAppointType && <AppointmentFacility
-                facilityOptions={facilityOptions}
-                setSelectedFacility={setSelectedFacility}
-                defaultValue={[]}
-              />}
+              {selectedAppointType && (
+                <AppointmentFacility
+                  facilityOptions={facilityOptions}
+                  setSelectedFacility={setSelectedFacility}
+                  facility={facility}
+                />
+              )}
 
               {selectedAppointType === "consulta" && (
                 <AppointmentDoctor
                   docOptions={docOptions}
                   setSelectedDoctor={setSelectedDoctor}
-                  defaultValue={[]}
+                  doctor={doctor}
                 />
               )}
 
-              {selectedAppointType && <AppointmentDateTime
-                setFieldValue={setFieldValue}
-                values={values}
-              />}
-              
+              {selectedAppointType && (
+                <AppointmentDateTime
+                  setFieldValue={setFieldValue}
+                  values={values}
+                  dateTime={dateTime}
+                />
+              )}
+
               {selectedAppointType && <AppointmentStatus />}
-
-
             </div>
 
             <div className="edit-buttons-box">

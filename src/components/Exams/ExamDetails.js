@@ -50,7 +50,7 @@ function ExamDetails() {
                             className="badge bg-primary text-white badgets-fixed-height-c"
                             style={{ fontSize: "10px" }}
                           >
-                            CONSULTURIO
+                            CONSULTÓRIO
                           </span>
                         ) : null}
                         {facility.hospital === true ? (

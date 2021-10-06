@@ -21,14 +21,13 @@ function AppointmentPatient({selectedUser, setSelectedPatient, patients, handleT
                       ? "selecione um usuario antes..."
                       : "selecione um paciente"
                   }
-                  defaultValue={patient}
-                  onChange={(item) => setSelectedPatient(Number(item?.value))}
+                  onChange={(item) => setSelectedPatient(item?.value ? Number(item?.value) : null)}
                   options={patients}
                   className="basic-multi-select field-box "
                   classNamePrefix="select"
                 />
                 <div className="d-flex">
-                  <h6 className="text-secondary">Cadestre novo paciente</h6>
+                  <h6 className="text-secondary">Cadastrar novo paciente</h6>
                   <div type="button" onClick={() => handleToggleNewPatient()}>
                     <IoAdd className="text-secondary plus-icon h4" />
                   </div>

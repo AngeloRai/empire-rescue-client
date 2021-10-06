@@ -1,0 +1,13 @@
+
+
+.appointment-edit-delete-box{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.appointment-edit-delete {
+  padding: 0 1rem;
+  font-size: 1.2rem;
+}
+
+

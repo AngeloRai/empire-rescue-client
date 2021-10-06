@@ -1,11 +1,16 @@
 
 .facility-card {
   padding: 0;
-  max-height: 4.375rem;
+  max-height: 4.18rem;
   margin: .5rem 0;
   
 }
-
+@media only screen and (max-width: 600px) {
+  .facility-card {
+    padding: 0;
+    max-height: 8rem;
+  }
+}
 
 .facility-inner-card {
   margin: .6rem;
@@ -13,17 +18,25 @@
   border-radius: 6px;
 }
 
-.badgets-fixed-height-c {
+.badgets-fixed-height-facility {
   height: 1.1rem;
   margin: .05rem;
   font-size: 10px;
   
 }
+
 .facility-name-unit {
   display: flex;
   justify-content: space-between;
   
 }
+
+.facility-name-card {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+
 .phone-icon {
   font-size: .8rem;
   margin-right: .3rem;
@@ -52,15 +65,33 @@
 
 .facility-add-link-box {
   display: flex;
-  justify-content: flex-end;
+
   gap: 4rem;
 }
 
-@media only screen and (max-width: 600px) {
+
+
+@media only screen and (max-width: 1200px) {
   .facility-card {
-    padding: 0;
-    max-height: 8rem;
+    font-size: .8rem;
+
   }
+  .facility-name-card {
+    font-size: .9rem;
+    font-weight: 600;
+  }
+
+  .facility-card {
+    max-height: 3.4rem;
+  }
+
+  .badgets-fixed-height-facility {
+    font-size: 8px;
+    height: .8rem;
+  margin: .08rem;
+    
+  }
+  
 }
 
 

@@ -6,7 +6,7 @@ import "./FormExam.css";
 import InputFeedback from "../componentHelpers/InputFeedback";
 
 
-function FormExam({ handleSubmit }) {
+function FormExam({ handleSubmit, exam }) {
   const examValidation = Yup.object().shape({
     examName: Yup.string().max(100).required("Por favor informe nome do exame."),
     examType: Yup.string().required("Por favor informe tipo do exame."),
@@ -17,8 +17,8 @@ function FormExam({ handleSubmit }) {
     <div className="container ">
         <Formik
           initialValues={{
-            examName: "",
-            examType: "",
+            examName: exam.examName ||"",
+            examType: exam.examType || "",
           }}
           validationSchema={examValidation}
           onSubmit={(values, { setSubmitting })  => {

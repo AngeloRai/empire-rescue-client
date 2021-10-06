@@ -1,5 +1,7 @@
+
 .logo {
   width: 50vw;
+  max-width: 40rem;
   min-width: 20rem;
   padding-left: 3rem;
 }
@@ -10,9 +12,37 @@
 
 .nav-bar {
   display: block;
-  background-color: #fdf1e5;
+  background-color: #FFFFFF;
 }
 
-.navbar-brand {
+.navlink-logout {
+  font-weight: 700;
+  font-size: xx-large;
+}
 
+
+/* Tooltip text */
+.navlink-logout .tooltiptext {
+  visibility: hidden;
+  color: black;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  right: 60px;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.navlink-logout:hover .tooltiptext {
+  visibility: visible;
+}
+
+@media screen and (max-width: 800px) {
+  .logo {
+    width: 70vw;
+    
+    
+  }
 }

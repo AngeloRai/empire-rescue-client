@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-
+import { useHistory, useParams } from "react-router";
 import AppointmentForm from "./AppointmentForm";
 import { api } from "../../../apis";
+import Spinner from "react-bootstrap/Spinner";
 
 function AppointmentEdit() {
   const { id } = useParams();
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
 
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState();
@@ -22,21 +24,101 @@ function AppointmentEdit() {
   const [showMessage, setShowMessage] = useState(false);
   const [selectedExam, setSelectedExam] = useState();
   const [examOptions, setExamOptions] = useState(false);
-
   const [toggleCreateUser, setToggleCreateUser] = useState(false);
   const [toggleCreatePatient, setToggleCreatePatient] = useState(false);
+  const [user, setUser] = useState([]);
+  const [patient, setPatient] = useState([]);
+  const [appointType, setAppointType] = useState([]);
+  const [exam, setExam] = useState([]);
+  const [specialty, setSpecialty] = useState([]);
+  const [facility, setFacility] = useState([]);
+  const [doctor, setDoctor] = useState([]);
+  const [dateTime, setDateTime] = useState([]);
+  const [status, setStatus] = useState([]);
 
   useEffect(() => {
     const fetchAppointment = async () => {
-      const fetchedAppointment = await api.get(`/appointment/${4}`)
-      console.log(fetchedAppointment.data);
-    }
-    fetchAppointment()
-  }, [id])
+      const fetchedAppointment = await api.get(`/appointment/${id}`);
+      const appointment = fetchedAppointment.data;
+      if (appointment.patient.userId !== null) {
+        setSelectedUser(appointment.patient.user.id);
+        setUser([
+          {
+            label: appointment.patient.user.email,
+            value: String(appointment.patient.user.id),
+          },
+        ]);
+      }
+      if (appointment.patientId !== null) {
+        setSelectedPatient(appointment.patient.id);
+        setPatient([
+          {
+            label: appointment.patient.name,
+            value: String(appointment.patient.id),
+          },
+        ]);
+      }
+      if (appointment.appointmentType !== null) {
+        setSelectedAppointType(appointment.appointmentType);
+        setAppointType([
+          {
+            label: appointment.appointmentType,
+            value: appointment.appointmentType,
+          },
+        ]);
+      }
+      if (appointment.exam !== null) {
+        setSelectedExam(appointment.exam.id);
+        setExam([
+          {
+            label: appointment.exam.examName || "",
+            value: String(appointment.exam.id) || "",
+          },
+        ]);
+      } else {
+        setSelectedExam(null);
+      }
+      if (appointment.specialtyId !== null) {
+        setSelectedSpecialty(appointment.specialty.id);
+        setSpecialty([
+          {
+            label: appointment.specialty.name,
+            value: String(appointment.specialty.id),
+          },
+        ]);
+      }
+      if (appointment.facilityId !== null) {
+        setSelectedFacility(appointment.facility.id);
+        setFacility([
+          {
+            label: appointment.facility.name,
+            value: String(appointment.facility.id),
+          },
+        ]);
+      }
+      if (appointment.doctorId !== null) {
+        setSelectedDoctor(appointment.doctor.id);
+        setDoctor([
+          {
+            label: appointment.doctor.name,
+            value: String(appointment.doctor.id),
+          },
+        ]);
+      }
+      if (appointment.dateTime !== null) {
+        setDateTime(appointment.dateTime.substring(0, 16));
+      }
+      if (appointment.status !== null) {
+        setStatus(appointment.status);
+      }
+      setLoading(false);
+    };
 
+    fetchAppointment();
+  }, [id]);
 
   useEffect(() => {
-    const fetchFacilitiesSpecialtiesDocs = async () => {
+    const fetchSpecialtiesExamsUsers = async () => {
       try {
         const fetchedUsers = await api.get("/users");
         const fetchedSpecialties = await api.get("/specialties");
@@ -65,8 +147,8 @@ function AppointmentEdit() {
         console.log(err);
       }
     };
-    fetchFacilitiesSpecialtiesDocs();
-  }, [selectedUser, selectedPatient]);
+    fetchSpecialtiesExamsUsers();
+  }, [selectedUser, selectedPatient, selectedSpecialty]);
 
   useEffect(() => {
     // Fetch patients according to user selected, list of patients is only avaible after user is selected
@@ -102,82 +184,10 @@ function AppointmentEdit() {
   }, [selectedUser, selectedPatient]);
 
   useEffect(() => {
-    //Set doctor options according to specialty and facility selected
-    const updateDoctorOptions = async () => {
-      let fetchedDocs = [];
-      try {
-        fetchedDocs = await api.get("/doctors");
-        if (!selectedFacility && !selectedSpecialty) {
-          setDocOptions(
-            fetchedDocs.data.map((doc) => ({
-              label: doc.name + " / " + doc.crm,
-              value: String(doc.id),
-            }))
-          );
-        }
-
-        if (selectedSpecialty && !selectedFacility) {
-          let filteredDoctorsBySpec = [];
-          fetchedDocs.data.forEach((doc) => {
-            doc.specialties?.forEach((specialty) => {
-              if (selectedSpecialty === specialty.id)
-                filteredDoctorsBySpec.push(doc);
-            });
-          });
-          setDocOptions(
-            filteredDoctorsBySpec.map((doc) => ({
-              label: doc.name + " / " + doc.crm,
-              value: String(doc.id),
-            }))
-          );
-        }
-        if (!selectedSpecialty && selectedFacility) {
-          const fetchedFcility = await api.get(`/facility/${selectedFacility}`);
-
-          setDocOptions(
-            fetchedFcility.data.doctors.map((doc) => ({
-              label: doc.name + " / " + doc.crm,
-              value: String(doc.id),
-            }))
-          );
-        }
-        if (selectedSpecialty && selectedFacility) {
-          let filteredDoctorsBySpecFacil = [];
-          const fetchedFacil = await api.get(`/facility/${selectedFacility}`);
-          fetchedFacil.data.doctors?.forEach((doc) => {
-            doc?.specialties.forEach((special) => {
-              if (selectedSpecialty === special.id)
-                filteredDoctorsBySpecFacil.push(doc);
-            });
-          });
-          setDocOptions(
-            filteredDoctorsBySpecFacil.map((doc) => ({
-              label: doc.name + " / " + doc.crm,
-              value: String(doc.id),
-            }))
-          );
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    updateDoctorOptions();
-  }, [selectedFacility, selectedSpecialty]);
-
-  useEffect(() => {
-    //Fetch or update facility options for dropdown select otptions, if specialty is selected fetch only facilities with selected specitalty
+    //Fetch facility options for dropdown select otptions, only facilities with selected specitalty
     const updateFacilityOptions = async () => {
       try {
-        if (!selectedSpecialty && !selectedDoctor) {
-          const fetchedFacilities = await api.get("/facilities-info");
-          setFacilityOptions(
-            fetchedFacilities.data?.map((facility) => ({
-              label: facility.name + " / " + facility.unit,
-              value: String(facility.id),
-            }))
-          );
-        }
-        if (selectedSpecialty && !selectedDoctor) {
+        if (selectedSpecialty) {
           const fetchedFacilityBySpecialty = await api.get(
             `/specialty/${selectedSpecialty}`
           );
@@ -188,34 +198,6 @@ function AppointmentEdit() {
             }))
           );
         }
-        if (selectedDoctor && !selectedSpecialty) {
-          const fetchedDoctor = await api.get(`/doctor/${selectedDoctor}`);
-          setFacilityOptions(
-            fetchedDoctor.data.facilities?.map((facility) => ({
-              label: facility.name + " / " + facility.unit,
-              value: String(facility.id),
-            }))
-          );
-        }
-        if (selectedDoctor && selectedSpecialty) {
-          let filteredByDocSpecialty = [];
-          const fetchedDoctor = await api.get(`/doctor/${selectedDoctor}`);
-          fetchedDoctor.data.facilities?.forEach((fac) => {
-            fac.specialties?.forEach((spec) => {
-              if (spec.id === selectedSpecialty) {
-                filteredByDocSpecialty.push(fac);
-              }
-            });
-          });
-
-          setFacilityOptions(
-            filteredByDocSpecialty?.map((facility) => ({
-              label: facility.name + " / " + facility.unit,
-              value: String(facility.id),
-            }))
-          );
-        }
-
         if (selectedExam) {
           const fetchedExam = await api.get(`/exam/${selectedExam}`);
           setFacilityOptions(
@@ -231,68 +213,33 @@ function AppointmentEdit() {
     };
     updateFacilityOptions();
   }, [selectedSpecialty, selectedDoctor, selectedExam]);
-  
-  useEffect(() => {
-    //Update exam options according to facility selected
-    const updateExamOptions = async () => {
-      if (selectedFacility) {
-        const fetchedFacility = await api.get(`/facility/${selectedFacility}`);
-
-        setExamOptions(
-          fetchedFacility.data?.exams?.map((exam) => ({
-            label: exam.examName,
-            value: String(exam.id),
-          }))
-        );
-      }
-    };
-    updateExamOptions();
-  }, [selectedFacility]);
-
 
   useEffect(() => {
-    //Update specialty options according to facility or doctor selected
-    const updateSpecialtyOptions = async () => {
-      if (selectedFacility && !selectedDoctor) {
-        const fetchedFacility = await api.get(`/facility/${selectedFacility}`);
+    //Set doctor options according to facility selected
+    const updateDoctorOptions = async () => {
+      try {
+        if (selectedFacility) {
+          const fetchedFacil = await api.get(`/facility/${selectedFacility}`);
 
-        setSpecialtyOptions(
-          fetchedFacility.data.specialties?.map((spec) => ({
-            label: spec.name,
-            value: String(spec.id),
-          }))
-        );
+          let filteredDoctorsBySpecFacil = fetchedFacil.data.doctors.filter(
+            (doc) =>
+              doc.specialties.map(
+                (specialty) => specialty.id === selectedSpecialty
+              )
+          );
+          setDocOptions(
+            filteredDoctorsBySpecFacil.map((doc) => ({
+              label: doc.name + " / " + doc.crm,
+              value: String(doc.id),
+            }))
+          );
+        }
+      } catch (err) {
+        console.log(err);
       }
-      if (!selectedFacility && selectedDoctor) {
-        const fetchedDoctor = await api.get(`/doctor/${selectedDoctor}`);
-
-        setSpecialtyOptions(
-          fetchedDoctor.data.specialties?.map((spec) => ({
-            label: spec.name,
-            value: String(spec.id),
-          }))
-        );
-      }
-      // let filteredSpecialtyByDocFacility = []
-      // if (selectedFacility && selectedDoctor) {
-      //   const fetchedFacility = await api.get(`/facility/${selectedFacility}`);
-
-      //   fetchedFacility.data.specialties?.forEach((specialty) => {
-      //     doc?.specialties.forEach((special) => {
-      //       if (selectedSpecialty === special.id)
-      //         filteredDoctorsBySpecFacil.push(doc);
-      //     });
-      //   });
-      //   setSpecialtyOptions(
-      //     fetchedDoctor.data.specialties?.map((spec) => ({
-      //       label: spec.name,
-      //       value: String(spec.id),
-      //     }))
-      //   );
-      // }
     };
-    updateSpecialtyOptions();
-  }, [selectedFacility, selectedDoctor]);
+    updateDoctorOptions();
+  }, [selectedFacility, selectedSpecialty]);
 
   const handleSubmit = async (values) => {
     console.log({
@@ -305,7 +252,7 @@ function AppointmentEdit() {
       ...values,
     });
     try {
-      await api.post("/appointment", {
+      await api.put(`/appointment-update/${id}`, {
         patientId: selectedPatient,
         facilityId: selectedFacility,
         doctorId: selectedDoctor,
@@ -317,7 +264,7 @@ function AppointmentEdit() {
     } catch (err) {
       console.log(err);
     }
-    //history.push("/agendamentos");
+    history.push("/agendamentos");
   };
 
   const handleNewUserToggle = () => {
@@ -337,38 +284,53 @@ function AppointmentEdit() {
   return (
     <div className="container m-3">
       <div className="m-3 text-center">
-        <h2>Gerar Agendamento</h2>
+        <h2>Editar Agendamento</h2>
       </div>
-
-      <AppointmentForm
-        users={users}
-        setSelectedUser={setSelectedUser}
-        selectedUser={selectedUser}
-        patient={[]}
-        patients={patients}
-        handleSubmit={handleSubmit}
-        setSelectedPatient={setSelectedPatient}
-        setSelectedAppointType={setSelectedAppointType}
-        selectedAppointType={selectedAppointType}
-        specialtyOptions={specialtyOptions}
-        setSelectedFacility={setSelectedFacility}
-        setSelectedExam={setSelectedExam}
-        examOptions={examOptions}
-        facilityOptions={facilityOptions}
-        docOptions={docOptions}
-        setSelectedDoctor={setSelectedDoctor}
-        setDocOptions={setDocOptions}
-        setSelectedSpecialty={setSelectedSpecialty}
-        toggleCreateUser={toggleCreateUser}
-        handleNewUserToggle={handleNewUserToggle}
-        setToggleCreateUser={setToggleCreateUser}
-        setToggleCreatePatient={setToggleCreatePatient}
-        toggleCreatePatient={toggleCreatePatient}
-        handleToggleNewPatient={handleToggleNewPatient}
-        showMessage={showMessage}
-        displaySelectedPatient={displaySelectedPatient}
-        selectedPatient={selectedPatient}
-      />
+      {loading && (
+        <div>
+          <Spinner animation="border" role="status"></Spinner>
+          <span className="">Loading...</span>
+        </div>
+      )}
+      {!loading && (
+        <AppointmentForm
+          users={users}
+          setSelectedUser={setSelectedUser}
+          selectedUser={selectedUser}
+          patients={patients}
+          handleSubmit={handleSubmit}
+          setSelectedPatient={setSelectedPatient}
+          setSelectedAppointType={setSelectedAppointType}
+          selectedAppointType={selectedAppointType}
+          specialtyOptions={specialtyOptions}
+          setSelectedFacility={setSelectedFacility}
+          setSelectedExam={setSelectedExam}
+          examOptions={examOptions}
+          facilityOptions={facilityOptions}
+          docOptions={docOptions}
+          setSelectedDoctor={setSelectedDoctor}
+          setDocOptions={setDocOptions}
+          setSelectedSpecialty={setSelectedSpecialty}
+          toggleCreateUser={toggleCreateUser}
+          handleNewUserToggle={handleNewUserToggle}
+          setToggleCreateUser={setToggleCreateUser}
+          setToggleCreatePatient={setToggleCreatePatient}
+          toggleCreatePatient={toggleCreatePatient}
+          handleToggleNewPatient={handleToggleNewPatient}
+          showMessage={showMessage}
+          displaySelectedPatient={displaySelectedPatient}
+          selectedPatient={selectedPatient}
+          user={user}
+          patient={patient}
+          appointType={appointType}
+          exam={exam}
+          specialty={specialty}
+          facility={facility}
+          doctor={doctor}
+          dateTime={dateTime}
+          status={status}
+        />
+      )}
     </div>
   );
 }

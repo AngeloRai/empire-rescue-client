@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "react-select";
 
-function AppointmentType({ setSelectedAppointType }) {
+function AppointmentType({ setSelectedAppointType, appointType }) {
   const appointmentTypes = [
     { label: "consulta", value: "consulta" },
     { label: "exame", value: "exame" },
@@ -13,7 +13,7 @@ function AppointmentType({ setSelectedAppointType }) {
       </label>
       <Select
         placeholder="selecione..."
-        defaultValue={[]}
+        defaultValue={appointType}
         onChange={(item) => setSelectedAppointType(item.value)}
         options={appointmentTypes}
         className="basic-multi-select field-box "

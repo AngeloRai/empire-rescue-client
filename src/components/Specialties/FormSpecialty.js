@@ -6,7 +6,7 @@ import "./FormSpecialty.css";
 import InputFeedback from "../componentHelpers/InputFeedback";
 
 
-function FormSpecialty({ handleSubmit }) {
+function FormSpecialty({ handleSubmit, specialty }) {
 
   const specialtyValidation = Yup.object().shape({
     name: Yup.string().max(100).required("Por favor informe nome do exame."),    
@@ -16,7 +16,7 @@ function FormSpecialty({ handleSubmit }) {
     <div className="container">
         <Formik
           initialValues={{
-            name: "",
+            name: specialty.name || "",
           }}
           validationSchema={specialtyValidation}
           onSubmit={(values, { setSubmitting })  => {

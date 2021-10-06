@@ -24,6 +24,7 @@ async function handleSubmit(values) {
     <h2>Registre um novo exame</h2>
       <FormExam
         handleSubmit={handleSubmit}
+        exam={[]}
       />
     </div>
   )

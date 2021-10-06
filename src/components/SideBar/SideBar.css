@@ -5,21 +5,30 @@
   background: #3b1616
 }
 
-.side-bar-list li a {
+.side-bar-list a {
   color: #d3b3b5;
   text-decoration: none;
 }
 
 .side-bar-list li {
-  border-radius: 5px;
-  padding: .5rem;
-  margin: 5px;
-  border: solid rgb(121, 108, 108) 1px;
-  box-shadow: 1px 1px 2px 1px rgba(153, 153, 167, 0.22);
+  border-radius: 3px;
+  padding: .4rem;
+  margin: 6px;
+  
+  box-shadow: 0px 0px 2px 1px rgba(191, 191, 202, 0.22);
 }
 
-.side-bar-list a:hover, a:focus {
-  color: #9c878b;
+.side-bar-list li:hover, li:focus {
+  background: #4b2222;
+
+}
+
+.side-bar-list a:focus {
+  color: #ce6840;
+  text-decoration: none;
+}
+.side-bar-list a:hover {
+  color: #fabe96;
   text-decoration: none;
 }
 

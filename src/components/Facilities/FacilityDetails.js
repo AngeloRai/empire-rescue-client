@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
-import { HiOutlineMail } from "react-icons/hi";
-import { FaPhone, FaMobileAlt } from "react-icons/fa";
-import { useParams, useHistory } from "react-router";
 import ConfirmationModal from "../componentHelpers/ConfirmationModal";
+import FacilityAddress from "./FacilityAddress";
+import FacilityContact from "./FacilityContact";
 import ListAssociations from "../componentHelpers/ListAssociations";
+import moment from "moment";
 import { api } from "../../apis";
 import "./FacilityDetails.css";
 
@@ -21,7 +22,6 @@ function FacilityDetails() {
     const fetchFacility = async () => {
       const fetchedFacility = await api.get(`/facility/${id}`);
       setFacility(fetchedFacility.data);
-      console.log(fetchedFacility.data);
       setLoading(false);
     };
     fetchFacility();
@@ -46,122 +46,32 @@ function FacilityDetails() {
             <small className="text-secondary h5"> / ({facility.unit})</small>
           </div>
           <div className="text-center m-1">
-              {facility.emergency === true ? (
-                <span className="badge bg-danger text-white details-badgets-fixed-height-c">
-                  PRONTO ATENDIMENTO
-                </span>
-              ) : null}
-              {facility.clinic === true ? (
-                <span className="badge bg-primary text-white details-badgets-fixed-height-c">
-                  CONSULTURIO
-                </span>
-              ) : null}
-              {facility.hospital === true ? (
-                <span className="badge bg-success text-white details-badgets-fixed-height-c">
-                  HOSPITAL
-                </span>
-              ) : null}
-              {facility.laboratory === true ? (
-                <span className="badge bg-info text-white details-badgets-fixed-height-c">
-                  LAB
-                </span>
-              ) : null}
-            </div>
+            {facility.emergency === true ? (
+              <span className="badge bg-danger text-white details-badgets-fixed-height-c">
+                PRONTO ATENDIMENTO
+              </span>
+            ) : null}
+            {facility.clinic === true ? (
+              <span className="badge bg-primary text-white details-badgets-fixed-height-c">
+                CONSULTÓRIO
+              </span>
+            ) : null}
+            {facility.hospital === true ? (
+              <span className="badge bg-success text-white details-badgets-fixed-height-c">
+                HOSPITAL
+              </span>
+            ) : null}
+            {facility.laboratory === true ? (
+              <span className="badge bg-info text-white details-badgets-fixed-height-c">
+                LAB
+              </span>
+            ) : null}
+          </div>
           <div className="facility-contact">
-            
             <div className="row">
-              
-              <div className="facility-contatct-box col-md-12 col-lg-4 border">
-                
-                <div className="">
-                  <div>
-                    <span className="p-2">
-                      <strong>
-                        <FaMobileAlt />{" "}
-                      </strong>{" "}
-                      <span> {facility.phone1}</span>
-                    </span>
-                  </div>
-  
-                  <div>
-                    <span className="p-2">
-                      <strong>
-                        <FaMobileAlt />{" "}
-                      </strong>{" "}
-                      <span> {facility.phone2}</span>
-                    </span>
-                  </div>
-                </div>
-                
-                <div className="">
-                  <div>
-                    <span className="p-2">
-                      <strong>
-                        <FaPhone />{" "}
-                      </strong>{" "}
-                      <span> {facility.phone3}</span>
-                    </span>
-                  </div>
-                  <div>
-                    <span className="p-2">
-                      <strong>
-                        <HiOutlineMail />{" "}
-                      </strong>{" "}
-                      <span> {facility.email}</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-  
-              {facility?.address && (
-                <div className="facility-contatct-box col-md-12 col-lg-7 border">
-                  <div className=" row">
-                   
-                    <span className=" col-md-12 ">
-                      <span className="p-2">
-                        <strong>Endereço: </strong> &nbsp;
-                        {facility.address.street} , {facility.address.number}
-                      </span>
-                    </span>
-  
-                    <div className=" col-md-12 ">
-                      <span className="p-2">
-                        <strong>Bairro:</strong>{" "}
-                        <span> &nbsp; {facility.address.neighborhood}</span>
-                      </span>
-  
-                      <span className="p-2">
-                        <strong>Cidade:</strong>{" "}
-                        <span> &nbsp; {facility.address.city}</span>
-                      </span>
-  
-                      <span className="p-2">
-                        <strong>Estado:</strong>{" "}
-                        <span> &nbsp; {facility.address.state}</span>
-                      </span>
-                    </div>
-                  </div>
-  
-                  <div className="col-md-12 row">
-                    <span className=" col-12 ">
-                      {facility.address.complement && (
-                        <span className="p-2">
-                          <strong>Complemento: </strong> &nbsp;
-                          {facility.address.complement}
-                        </span>
-                      )}
-                    </span>
-                    <span className=" col-12 ">
-                      {facility.address.observations && (
-                        <span className="p-2">
-                          <strong>Observações:</strong> &nbsp;
-                          {facility.address.observations}
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                </div>
-              )}
+              <FacilityContact facility={facility} />
+
+              {facility?.address && <FacilityAddress facility={facility} />}
             </div>
             <div className="specialty-facility row">
               {!loading && facility.specialties?.length ? (
@@ -198,18 +108,20 @@ function FacilityDetails() {
                   <h4>Medicos:</h4>Nenhum medico encontrado.
                 </div>
               )}
-              <div className="row border col-8 col-md-10 appointment-box">
+              <div className="row border col-10 col-md-10 appointment-box">
                 <h4>Agendamentos:</h4>
-                {!loading && facility.appointments?.length ? (
+                {!loading && facility.appointments ? (
                   facility.appointments.map((appointment) => (
-                    <div className="col-5 m-1 shadow border p-2">
+                    <div className="col-6 col-md-5 col-lg-3 shadow border p-2">
                       <div>
                         <p>
                           <strong>Data/Horario: </strong>
-                          {appointment.dateTime}
+                          {moment(appointment.dateTime)
+                            .add(3, "hours")
+                            .format("DD/MM/YYYY HH:mm")}
                         </p>{" "}
                         <p>
-                          <strong>Tipo:</strong> {appointment.type}
+                          <strong>Tipo:</strong> {appointment.appointmentType}
                         </p>
                       </div>
                       <div>
@@ -221,10 +133,12 @@ function FacilityDetails() {
                         </p>
                       </div>
                       <Link
-                        to={`/agendamento/${appointment.id}`}
+                        to={`/agendamento-detalhes/${appointment.id}`}
                         key={appointment.id}
-                        className="link "
-                      ></Link>
+                        className="btn btn-secondary p-1"
+                      >
+                        Detalhes
+                      </Link>
                     </div>
                   ))
                 ) : (

@@ -29,14 +29,14 @@ function DoctorDetails() {
 
   const handleDelete = async (id) => {
     try {
-      await api.delete(`/doctor-delete/${id}`);
+      await api.delete(`/appointment-delete/${id}`);
       setShowModal(false);
-      history.push("/medicos");
+      history.push("/agendamentos");
     } catch (err) {
       console.console.error(err);
     }
   };
-
+  
   return (
     <div className="main-doctor-card">
       {doctor && (
@@ -121,7 +121,7 @@ function DoctorDetails() {
                       {appointment.dateTime}
                     </p>{" "}
                     <p>
-                      <strong>Tipo:</strong> {appointment.type}
+                      <strong>Tipo:</strong> {appointment.appointmentType}
                     </p>
                   </div>
                   <div>

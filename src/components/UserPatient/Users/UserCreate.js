@@ -1,12 +1,10 @@
 import React from 'react'
 
 import UserForm from './UserForm'
-import { api } from "../../apis";
+import { api } from "../../../apis";
 
-function Users({  setToggled }) {
+function UserCreate({  setToggled }) {
 
-
-  
   async function handleSubmit(values) {
     console.log(values);
     try {
@@ -23,10 +21,11 @@ function Users({  setToggled }) {
         <UserForm
           handleSubmit={handleSubmit}
           setToggled={setToggled}
+          isUserForm={true}
         />
         
       </div>
     )
   }
 
-export default Users
+export default UserCreate

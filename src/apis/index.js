@@ -1,17 +1,18 @@
 import axios from "axios";
 
-// const apis = {
-//     development: "http://localhost:4000",
-//     production: "https://ironbeers-store.herokuapp.com",
-//   };
-// baseURL: apis[process.env.NODE_ENV],
+const apis = {
+    development: "http://localhost:4000",
+    production: "https://empire-rescue.herokuapp.com",
+  };
 
-export const api = axios.create({
-    baseURL: "http://localhost:4000",
+export const api = axios.create({ 
+    baseURL: apis[process.env.NODE_ENV],
   });
+
 export const cepApi = axios.create({
     baseURL: "https://viacep.com.br/ws",
   });
+  
 export const statesCitiesApi = axios.create({
     baseURL: "https://servicodados.ibge.gov.br/api/v1/localidades",
   });

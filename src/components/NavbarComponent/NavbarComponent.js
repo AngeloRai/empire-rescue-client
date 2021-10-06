@@ -1,18 +1,20 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import "./NavbarComponent.css";
+import { AuthContext } from "../../contexts/authContext";
+
+import { RiLogoutBoxLine } from "react-icons/ri";
+import logo from '../../images/empire-rescue-logo.png'
 
 function NavbarComponent() {
+  const { loggedInUser, setLoggedInUser } = useContext(AuthContext);
   const [expanded, setExpanded] = useState(false);
 
   function expand() {
-    
     if (expanded === false) {
       setExpanded(true);
     } else if (expanded === true) setExpanded(false);
-
-    
   }
 
   return (
@@ -20,74 +22,55 @@ function NavbarComponent() {
       collapseOnSelect
       expanded={expanded}
       expand="lg"
-      style={{backgroundColor: '#FDF1E5'}} 
+      style={{ backgroundColor: "#FFFFFF" }}
       variant="light"
-      className="nav-bar d-flex w-100"
+      className="nav-bar d-flex shadow"
     >
       <Navbar.Brand to="/home">
         <NavLink className="nav-link-logo" to="/">
           <img
-            src={"http://empirerescue.com.br/wp-content/uploads/2019/03/empiremedical-homerescue-180px.png"}
+            src={logo}
             alt="logo"
             className="logo "
           />
         </NavLink>
       </Navbar.Brand>
-      <Navbar.Toggle className="humburger" onClick={expand} aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav text-center">
-        <Nav className="">
-          <NavLink
-            onClick={() => setExpanded(false)}
-            className="nav-link"
-            activeClassName="active"
-            to="/"
-          >
-            HOME
-          </NavLink>
-         
-          
-        </Nav>
-        {/* {loggedInUser.user.name ? (
-
-          <div className="d-flex  justify-content-center " >
-
-            <Dropdown>
-              <Dropdown.Toggle
-                id="dropdown-basic"
-                style={{ backgroundColor: "#0a0a0a", border: "none"}}
+      <Navbar.Toggle
+        className="humburger"
+        onClick={expand}
+        aria-controls="responsive-navbar-nav d-flex"
+      />
+      <Navbar.Collapse id="responsive-navbar-nav ">
+        <div className="d-flex justify-content-end w-100">
+          <Nav>
+            {loggedInUser.user.email ? (
+              <div
+              type="button"
+              className="nav-link mx-4 navlink-logout"
+                onClick={(event) => {
+                  event.preventDefault();
+                  // Logout Process
+                  setLoggedInUser({ user: {}, token: "" });
+                  localStorage.removeItem("loggedInUser");
+                }}
               >
-                <span className="mr-2">
-                  Hi, {loggedInUser.user.name.split(" ")[0]}!
-                </span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="overlay">
-                <Dropdown.Item to="/profile" as={NavLink}>
-                  PROFILE
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={(event) => {
-                    event.preventDefault();
-                    // Logout Process
-                    setLoggedInUser({ user: {}, token: "" });
-                    localStorage.removeItem("loggedInUser");
-                  }}
-                >
-                  LOGOUT
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
-        ) : (
-          <NavLink
-            className="nav-link text-white"
-            activeClassName="active"
-            to="/login"
-          >
-            LOGIN
-          </NavLink>
-        )} */}
+                
+                <RiLogoutBoxLine/>
+                <span class="tooltiptext">LOGOUT</span>
+              </div>
+            ) : (
+              <NavLink
+                onClick={() => setExpanded(false)}
+                className="nav-link mx-4"
+                activeClassName="active"
+                to="/login"
+              >
+                LOGIN
+              </NavLink>
+            )}
+          </Nav>
+        </div>
       </Navbar.Collapse>
-      {/* <Nav>{loggedInUser.user.name ? <Cart /> : null}</Nav> */}
     </Navbar>
   );
 }

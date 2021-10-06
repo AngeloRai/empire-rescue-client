@@ -3,13 +3,19 @@ import { Link } from "react-router-dom";
 import ConfirmationModal from "../componentHelpers/ConfirmationModal";
 import { api } from "../../apis";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { MdModeEdit } from "react-icons/md";
+import { convertToSlug } from "../componentHelpers/slugify";
+
 import "./ExamList.css";
 
 function ExamList() {
-  const [exams, setExams] = useState();
-  const [isOrderedFirst, setIsOrderedFirst] = useState(true);
+  const [exams, setExams] = useState([]);
+  const [filteredExams, setFilteredExams] = useState([]);
+
   const [showModal, setShowModal] = useState(false);
   const [deleteId, setDeleteId] = useState();
+  const [searchName, setSearchName] = useState();
+  const [searchType, setSearchType] = useState();
 
   const fetchExams = async () => {
     const fetchedExams = await api.get("/exams");
@@ -17,88 +23,92 @@ function ExamList() {
     const sortedExams = fetchedExams.data.sort((a, b) =>
       a.examName.localeCompare(b.examName)
     );
-    console.log(sortedExams);
     setExams(sortedExams);
   };
 
   useEffect(() => {
     fetchExams();
   }, []);
+  useEffect(() => {
+    function filterExams() {
+      let filteredArray = [...exams];
+      if (exams && searchName) {
+        filteredArray = exams.filter((exam) =>
+          convertToSlug(exam.examName).includes(convertToSlug(searchName))
+        );
+      } else {
+        filteredArray = [...exams];
+      }
+
+      if (searchType) {
+        filteredArray = filteredArray.filter((exam) =>
+          convertToSlug(exam.examType).includes(convertToSlug(searchType))
+        );
+      }
+      setFilteredExams(filteredArray);
+    }
+    filterExams();
+  }, [exams, searchName, searchType]);
 
   const handleDelete = async (id) => {
     try {
       await api.delete(`/exam-delete/${id}`);
       fetchExams();
-      alert(id);
       setShowModal(false);
     } catch (err) {
       console.console.error(err);
     }
   };
 
-  const handleSorting = (value) => {
-    if (value === "name") {
-      sortByName();
-    } else if (value === "type") {
-      sortByType();
-    }
-  };
-
-  const sortByName = () => {
-    const examsCopy = [...exams];
-    let newExamsCopy = [...examsCopy];
-    if (isOrderedFirst) {
-      newExamsCopy = examsCopy.sort((a, b) => a.examName - b.examName);
-    } else {
-      newExamsCopy = examsCopy.sort((a, b) => b.examName - a.examName);
-    }
-    setIsOrderedFirst(!isOrderedFirst);
-    setExams(newExamsCopy);
-    console.log(newExamsCopy);
-  };
-
-  const sortByType = () => {
-    const examsCopy = [...exams];
-    let newExamsCopy = [...examsCopy];
-    if (isOrderedFirst) {
-      newExamsCopy = examsCopy.sort((a, b) => a.examType - b.examType);
-    } else {
-      newExamsCopy = examsCopy.sort((a, b) => b.examType - a.examType);
-    }
-    setIsOrderedFirst(!isOrderedFirst);
-    setExams(newExamsCopy);
-    console.log(newExamsCopy);
-  };
-
   const handleModalDeleteId = (id) => {
     setDeleteId(id);
     setShowModal(true);
   };
-
   return (
     <div className="main-exams-container w-100 m-2">
-      <h2>Exames</h2>{" "}
+      <h2 className=" text-center">Exames</h2>
       <div className="add-link">
         <Link to="/adicionar-exame" className="link">
           Adicionar Exame
         </Link>
       </div>
-      <div className="row list-exams-header">
-        <div onClick={() => handleSorting("name")} className="col-4">
-          NOME
+      <div className="row">
+        <div className="col-md-5 col-lg-3 m-1">
+          <input
+            placeholder="exame..."
+            type="text"
+            className="m-1 form-control shadow-none no-border "
+            id="searchName"
+            name="searchName"
+            onChange={(e) => setSearchName(e.target.value)}
+            value={searchName}
+          />
         </div>
-        <div onClick={() => handleSorting("type")} className=" col-4">
-          TIPO
+        <div className="col-md-5 col-lg-3 m-1">
+          <input
+            placeholder="tipo..."
+            type="text"
+            className="m-1 form-control shadow-none no-border"
+            id="searchType"
+            name="searchType"
+            onChange={(e) => setSearchType(e.target.value)}
+            value={searchType}
+          />
         </div>
-        <div className=" col-2">EXCLUIR</div>
       </div>
-      {exams &&
-        exams.map((loopedExam) => (
+      <div className="row list-exams-header">
+        <div className="col-5 col-md-4">NOME</div>
+        <div className="col-3 col-md-4">TIPO</div>
+        <div className=" col-2 col-md-1">EDITAR</div>
+        <div className=" col-2 col-md-1">EXCLUIR</div>
+      </div>
+      {filteredExams &&
+        filteredExams.map((loopedExam) => (
           <div
             className="exams-container row bg-light border-bottom"
             key={loopedExam.id}
           >
-            <div className="col-4">
+            <div className="col-5 col-md-4">
               <Link
                 className="text-decoration-none text-dark"
                 to={`/exame/${loopedExam.id}`}
@@ -106,8 +116,14 @@ function ExamList() {
                 {loopedExam.examName}
               </Link>
             </div>
-            <div className="col-4">{loopedExam.examType}</div>
-            <div className="col-2">
+            <div className="col-3 col-md-4">{loopedExam.examType}</div>
+            <Link
+              className="text-decoration-none text-dark col-2 col-md-1 text-center"
+              to={`/editar-exame/${loopedExam.id}`}
+            >
+              <MdModeEdit />
+            </Link>
+            <div className="col-2 col-md-1 text-center">
               <span
                 type="button"
                 onClick={() => handleModalDeleteId(loopedExam.id)}

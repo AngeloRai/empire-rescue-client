@@ -1,27 +1,33 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { patienteValidation } from "../componentHelpers/validationHelpers";
-import InputFeedback from "../componentHelpers/InputFeedback";
-import AddressForm from "../componentHelpers/AddressForm";
-import ContactForm from "../componentHelpers/ContactForm";
+import { patienteValidation } from "../../componentHelpers/validationHelpers";
+import InputFeedback from "../../componentHelpers/InputFeedback";
+import AddressForm from "../../componentHelpers/AddressForm";
+import ContactForm from "../../componentHelpers/ContactForm";
 
-function PatientForm({ patient, address, handleSubmit, setToggled }) {
+function PatientForm({
+  patient,
+  address,
+  handleSubmit,
+  setToggled,
+  isPatientUserForm,
+}) {
   return (
     <div>
       <Formik
         initialValues={{
-          name: patient.name || "",
-          rg: patient.rg || "",
-          cpf: patient.cpf || "",
-          phone1: patient.phone1 || "",
-          phone2: patient.phone2 || "",
-          postalCode: address.postalCode || "",
-          street: address.street || "",
-          number: address.number || "",
-          neighborhood: address.neighborhood || "",
-          city: address.city || "",
-          state: address.state || "",
-          complement: address.complement || "",
-          observations: address.observations || "",
+          name: patient?.name || "",
+          rg: patient?.rg || "",
+          cpf: patient?.cpf || "",
+          phone1: patient?.phone1 || "",
+          phone2: patient?.phone2 || "",
+          postalCode: address?.postalCode || "",
+          street: address?.street || "",
+          number: address?.number || "",
+          neighborhood: address?.neighborhood || "",
+          city: address?.city || "",
+          state: address?.state || "",
+          complement: address?.complement || "",
+          observations: address?.observations || "",
         }}
         validationSchema={patienteValidation}
         onSubmit={(values, { setSubmitting }) => {
@@ -41,7 +47,6 @@ function PatientForm({ patient, address, handleSubmit, setToggled }) {
         }) => (
           <Form>
             <div className="d-flex justify-content-between gap-5 m-4">
-              <h4>Cadestre Novo Paciente</h4>
               <hr />
               <div className="d-flex gap-5">
                 <button
@@ -53,12 +58,14 @@ function PatientForm({ patient, address, handleSubmit, setToggled }) {
                     {isSubmitting ? <span>Loading</span> : <span>Salvar</span>}
                   </div>
                 </button>
-                <div
-                  className="btn btn-warning"
-                  onClick={() => setToggled(false)}
-                >
-                  Fechar
-                </div>
+                {isPatientUserForm === true && (
+                  <div
+                    className="btn btn-warning"
+                    onClick={() => setToggled(false)}
+                  >
+                    Fechar
+                  </div>
+                )}
               </div>
             </div>
             <h5>DADOS PESSOAIS </h5>
@@ -150,12 +157,14 @@ function PatientForm({ patient, address, handleSubmit, setToggled }) {
                   {isSubmitting ? <span>Loading</span> : <span>Salvar</span>}
                 </div>
               </button>
-              <div
-                className="btn btn-warning"
-                onClick={() => setToggled(false)}
-              >
-                Fechar
-              </div>
+              {isPatientUserForm === true && (
+                <div
+                  className="btn btn-warning"
+                  onClick={() => setToggled(false)}
+                >
+                  Fechar
+                </div>
+              )}
             </div>
           </Form>
         )}

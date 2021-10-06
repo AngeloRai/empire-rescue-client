@@ -29,7 +29,10 @@ function SpecialtyDetails() {
               </div>
               {specialty.facilities &&
                 specialty.facilities.map((facility) => (
-                  <Link to={`/estabelecimento-detalhes/${facility.id}`} className="text-decoration-none text-dark">
+                  <Link
+                    to={`/estabelecimento-detalhes/${facility.id}`}
+                    className="text-decoration-none text-dark"
+                  >
                     <div className="row p-1 border my-1" key={facility.id}>
                       <span className="col">{facility.name}</span>
                       <span className="col"> {facility.unit}</span>
@@ -47,7 +50,7 @@ function SpecialtyDetails() {
                             className="badge bg-primary text-white badgets-fixed-height-c"
                             style={{ fontSize: "10px" }}
                           >
-                            CONSULTURIO
+                            CONSULTÓRIO
                           </span>
                         ) : null}
                         {facility.hospital === true ? (

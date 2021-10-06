@@ -13,7 +13,9 @@ function FacilityListCard({ facility, address }) {
             to={`/estabelecimento-detalhes/${facility.id}`}
           >
             <div className="facility-name-unit">
-              <h5 className="text-secondary">{facility.name} </h5>
+              <span className="text-secondary facility-name-card">
+                {facility.name}{" "}
+              </span>
               <div>
                 <span className="text-dark">{address.city}</span>
               </div>
@@ -32,22 +34,22 @@ function FacilityListCard({ facility, address }) {
             </div>
             <div className="text-center m-1">
               {facility.emergency === true ? (
-                <span className="badge bg-danger text-white badgets-fixed-height-c">
+                <span className="badge bg-danger text-white badgets-fixed-height-facility">
                   P A
                 </span>
               ) : null}
               {facility.clinic === true ? (
-                <span className="badge bg-primary text-white badgets-fixed-height-c">
-                  CONSULTURIO
+                <span className="badge bg-primary text-white badgets-fixed-height-facility">
+                  CONSULTÓRIO
                 </span>
               ) : null}
               {facility.hospital === true ? (
-                <span className="badge bg-success text-white badgets-fixed-height-c">
+                <span className="badge bg-success text-white badgets-fixed-height-facility">
                   HOSPITAL
                 </span>
               ) : null}
               {facility.laboratory === true ? (
-                <span className="badge bg-info text-white badgets-fixed-height-c">
+                <span className="badge bg-info text-white badgets-fixed-height-facility">
                   LAB
                 </span>
               ) : null}

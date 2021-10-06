@@ -5,7 +5,7 @@ function DisplayPatient({ displaySelectedPatient }) {
    <div>
      {displaySelectedPatient.length && <div className="row m-3">
       
-         <div className="col-8 col-md-3 m-1 border p-2">
+         <div className="col-8 col-md-4 m-1 border p-2">
           <h5 className="text-secondary">Dados Paciente</h5>
           <div>
             <strong>Nome: </strong> {displaySelectedPatient[0].name}
@@ -29,17 +29,17 @@ function DisplayPatient({ displaySelectedPatient }) {
             {displaySelectedPatient[0].address.number}
           </div>
           <div>
-            <strong>bairro: &nbsp;</strong>{" "}
+            <strong>Bairro: &nbsp;</strong>{" "}
             {displaySelectedPatient[0].address.neighborhood}&nbsp;
-            <strong>&nbsp;cidade: &nbsp;</strong> {displaySelectedPatient[0].address.city}
-            <strong>&nbsp; estado: &nbsp;</strong> {displaySelectedPatient[0].address.state}
+            <strong>&nbsp;Cidade: &nbsp;</strong> {displaySelectedPatient[0].address.city}
+            <strong>&nbsp; Estado: &nbsp;</strong> {displaySelectedPatient[0].address.state}
           </div>
           <div>
-            <strong>complemento: </strong>{" "}
+            <strong>Complemento: </strong>{" "}
             {displaySelectedPatient[0].address.complement}
           </div>
           <div>
-            <strong>observacoes: </strong>{" "}
+            <strong>Observações: </strong>{" "}
             {displaySelectedPatient[0].address.observations}
           </div>
         </div>
