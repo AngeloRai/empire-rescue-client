@@ -46,7 +46,7 @@ function Login() {
       <h1>Login</h1>
 
       <UserFormIput handleSubmit={handleSubmit} error={error}/>
-      <p>Ainda não tem uma conta? <Link to="/cadastro">Cadastre.</Link></p>
+      <p>Ainda não tem uma conta? <Link to="/cadastro">Cadastre uma conta.</Link></p>
 
     </div>
   );

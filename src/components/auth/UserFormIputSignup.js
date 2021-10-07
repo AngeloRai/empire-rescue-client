@@ -2,28 +2,36 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import React from "react";
 import * as Yup from "yup";
 
-
 import InputFeedback from "../componentHelpers/InputFeedback";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Not a valid e-mail").required("Required field"),
-  password: Yup.string().min(6).required("Required field"),
+  confirmPassword: Yup.string().required("Inserir Senha."),
+  password: Yup.string()
+    .required("Confirmar Senha")
+    .when("confirmPassword", {
+      is: (val) => (val && val.length > 0 ? true : false),
+      then: Yup.string().oneOf(
+        [Yup.ref("confirmPassword")],
+        "Senha deve ser igual"
+      ),
+    }),
 });
 
-function UserFormIput({ handleSubmit, error }) {
-
+function UserFormIputSignup({ handleSubmit, error }) {
   return (
     <Formik
       initialValues={{
         email: "",
+        confirmPassword: "",
         password: "",
       }}
       validationSchema={SignupSchema}
       onSubmit={async (values, { setSubmitting }) => {
         setSubmitting(true);
         try {
-          await handleSubmit(values)
-          console.log(values)
+          await handleSubmit(values);
+          console.log(values);
           setSubmitting(false);
         } catch (err) {
           console.error(err);
@@ -53,10 +61,34 @@ function UserFormIput({ handleSubmit, error }) {
                 </InputFeedback>
               )}
             />
-
           </div>
           <div className="mx-4 form-group col-8 col-md-5">
-            <label htmlFor="signupFormPassword">Senha</label>
+                <label htmlFor="registerEmail">Senha</label>
+                <Field
+                  type="password"
+                  className={` form-control ${
+                    errors.confirmPassword && touched.confirmPassword
+                      ? "is-invalid"
+                      : "is-valid"
+                  }`}
+                  id="registerconfirmPassword"
+                  name="confirmPassword"
+                />
+                <ErrorMessage
+                  name="confirmPassword"
+                  render={(msg) => (
+                    <InputFeedback
+                      invalid={
+                        errors.confirmPassword && touched.confirmPassword
+                      }
+                    >
+                      {msg}
+                    </InputFeedback>
+                  )}
+                />
+              </div>
+          <div className="mx-4 my-3 form-group col-8 col-md-5">
+            <label htmlFor="signupFormPassword">Confrimar Senha</label>
             <Field
               type="password"
               className={`form-control ${
@@ -94,12 +126,10 @@ function UserFormIput({ handleSubmit, error }) {
               <span>Submit</span>
             )}
           </button>
-
-         
         </Form>
       )}
     </Formik>
   );
 }
 
-export default UserFormIput;
+export default UserFormIputSignup;

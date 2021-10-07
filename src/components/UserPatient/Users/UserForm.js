@@ -89,7 +89,7 @@ function UserForm({ handleSubmit, setToggled, isUserForm, user, isEdit }) {
                 />
               </div>
               <div className="form-group m-2 col-10 col-md-6">
-                <label htmlFor="registerEmail">Confrime Senha</label>
+                <label htmlFor="registerEmail">Confirmar Senha</label>
                 <Field
                   type="password"
                   className={`field-box fields form-control ${
