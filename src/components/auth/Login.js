@@ -40,13 +40,12 @@ function Login() {
 
   return (
     <div className="m-3">
+      <h1>Login</h1>
       <br />
       <small>
         <strong>demo user</strong> email: teste@teste.com password: teste123
       </small>
       <br />
-      <h1>Login</h1>
-
       <UserFormIput handleSubmit={handleSubmit} error={error} />
 
       <p>
