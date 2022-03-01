@@ -35,18 +35,23 @@ function Login() {
       if (err.response && err.response.data) {
         console.log(err.response.data.mes); // some error message
       }
-
     }
   }
 
   return (
     <div className="m-3">
+      <br />
+      <small>
+        <strong>demo user</strong> email: teste@teste.com password: teste123
+      </small>
+      <br />
       <h1>Login</h1>
 
-      <UserFormIput handleSubmit={handleSubmit} error={error}/>
-      <small><strong>demo user</strong> email: teste@teste.com password: teste123</small>
-      <p>Ainda não tem uma conta? <Link to="/cadastro">Cadastre uma conta.</Link></p>
+      <UserFormIput handleSubmit={handleSubmit} error={error} />
 
+      <p>
+        Ainda não tem uma conta? <Link to="/cadastro">Cadastre uma conta.</Link>
+      </p>
     </div>
   );
 }
