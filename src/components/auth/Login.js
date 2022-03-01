@@ -24,7 +24,6 @@ function Login() {
       const user = await api.post("/login", values);
       // Storing logged user data into Context (global state)
       setLoggedInUser({ ...user.data });
-      console.log(user.data);
 
       console.log(values);
       console.log(user);
@@ -34,10 +33,9 @@ function Login() {
       setError(err.response.data.msg);
 
       if (err.response && err.response.data) {
-        console.log(err.response.data.mes); // some reason error message
+        console.log(err.response.data.mes); // some error message
       }
 
-      console.error(err.response.data.msg);
     }
   }
 
@@ -46,6 +44,7 @@ function Login() {
       <h1>Login</h1>
 
       <UserFormIput handleSubmit={handleSubmit} error={error}/>
+      <small><strong>demo user</strong> email: teste@teste.com password: teste123</small>
       <p>Ainda não tem uma conta? <Link to="/cadastro">Cadastre uma conta.</Link></p>
 
     </div>

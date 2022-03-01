@@ -104,22 +104,3 @@ export const facilityTypeOptions = [
   { label: "laboratório", value: "laboratório" },
 ];
 
-
-  // const [listUFs, setListUFs] = useState()
-  // const [listCities, setListCities] = useState()
-
-  //   useEffect(() => {
-  //     const populatedStates = statesCitiesApi.get('/estados');
-  //     populatedStates.then((res) => {
-  //       setListUFs(res.data);
-
-  //      const stateId = res.data.map(dataid => dataid.id);
-  //       console.log(res.data);
-
-  //       const populatedCities = statesCitiesApi.get(`/estados/12/municipios`);
-  //       populatedCities.then((res) => {
-  //         setListCities(res.data);
-  //         console.log(res.data);
-  //       })
-  //     })
-  //   }, []);

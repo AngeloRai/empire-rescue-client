@@ -9,7 +9,7 @@ function SpecailtyCreate() {
 const history = useHistory();
 
 async function handleSubmit(values) {
-  console.log(values);
+
   try {
     await api.post("/specialty", values);
 

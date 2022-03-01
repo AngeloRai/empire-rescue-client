@@ -30,7 +30,7 @@ function AppointmentDetails() {
     const fetchAppointment = async () => {
       const fetchedAppointment = await api.get(`appointment/${id}`);
       setAppointment(fetchedAppointment.data);
-      console.log(fetchedAppointment.data);
+
     };
     fetchAppointment();
   }, [id]);
@@ -45,7 +45,7 @@ function AppointmentDetails() {
     }
   };
 
-  console.log(appointment);
+
   return (
     <div className="m-1 row">
       <div className="appointment-edit-delete-box">

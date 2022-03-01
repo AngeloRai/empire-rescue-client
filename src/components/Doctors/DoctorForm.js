@@ -28,7 +28,6 @@ function DoctorForm({
           }}
           validationSchema={doctorValidation}
           onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
             handleSubmit(values);
             setSubmitting(false);
           }}

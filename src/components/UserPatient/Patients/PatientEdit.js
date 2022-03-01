@@ -18,7 +18,7 @@ function PatientEdit() {
   }, [id])
 
   async function handleSubmit(values) {
-    console.log(values);
+
     try {
       await api.put(`/patient/${id}`, values);
       

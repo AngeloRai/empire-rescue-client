@@ -61,7 +61,6 @@ function DoctorEdit() {
         setSpecialtyOptions(treatedSpecialties);
         setDoctor(fetchedDoctor.data);
         setLoading(false);
-        console.log(docFacilities.map(x => Number(x.value)));
       } catch (err) {
         console.log(err);
       }

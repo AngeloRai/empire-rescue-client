@@ -15,7 +15,7 @@ function Signup() {
       console.log(values);
       history.push("/login");
     } catch (err) {
-      console.log(err);
+
       console.error(err.response.data.msg);
       setError(err.response.data.msg);
 

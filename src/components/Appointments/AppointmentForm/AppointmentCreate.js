@@ -138,7 +138,6 @@ function AppointmentCreate() {
                 (specialty) => specialty.id === selectedSpecialty
               )
           );
-          console.log(filteredDoctorsBySpecFacil);
           setDocOptions(
             filteredDoctorsBySpecFacil.map((doc) => ({
               label: doc.name + " / " + doc.crm,

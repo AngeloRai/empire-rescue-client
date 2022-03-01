@@ -21,7 +21,6 @@ function DoctorDetails() {
     const fetchDoctor = async () => {
       const fetchedDoctor = await api.get(`/doctor/${id}`);
       setDoctor(fetchedDoctor.data);
-      console.log(fetchedDoctor.data);
       setLoading(false);
     };
     fetchDoctor();

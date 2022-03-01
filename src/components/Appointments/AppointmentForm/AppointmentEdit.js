@@ -242,15 +242,6 @@ function AppointmentEdit() {
   }, [selectedFacility, selectedSpecialty]);
 
   const handleSubmit = async (values) => {
-    console.log({
-      patientId: selectedPatient,
-      facilityId: selectedFacility,
-      doctorId: selectedDoctor,
-      specialtyId: selectedSpecialty,
-      examId: selectedExam,
-      appointmentType: selectedAppointType,
-      ...values,
-    });
     try {
       await api.put(`/appointment-update/${id}`, {
         patientId: selectedPatient,

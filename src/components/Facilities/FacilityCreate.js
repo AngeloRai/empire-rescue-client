@@ -43,8 +43,7 @@ function FacilityCreate() {
   }, []);
 
   const handleSubmit = async (values) => {
-    
-    console.log(values)
+
     try {
       await api.post("/facility", {
         specialties: selectedSpecialties,
@@ -55,7 +54,7 @@ function FacilityCreate() {
       console.log(err);
     }
    history.push("/estabelecimentos");
-    console.log(values);
+
   };
 
   return (

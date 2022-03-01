@@ -4,7 +4,6 @@ import { api } from "../../../apis";
 
 function PatientCreate({ setToggled, patient, address, userId }) {
   async function handleSubmit(values) {
-    console.log(values, userId);
     try {
       await api.post("/patient", { ...values, userId: userId });
       setToggled(false);

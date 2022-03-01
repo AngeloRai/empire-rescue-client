@@ -23,7 +23,6 @@ function UserFormIput({ handleSubmit, error }) {
         setSubmitting(true);
         try {
           await handleSubmit(values)
-          console.log(values)
           setSubmitting(false);
         } catch (err) {
           console.error(err);

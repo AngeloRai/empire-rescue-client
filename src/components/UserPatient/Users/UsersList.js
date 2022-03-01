@@ -21,7 +21,7 @@ function UsersList() {
     const sortedUsers = fetchedUsers.data.sort((a, b) =>
       a.email.localeCompare(b.email)
     );
-    console.log(sortedUsers);
+
     setUsers(sortedUsers);
   };
 

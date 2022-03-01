@@ -12,7 +12,6 @@ function UserEdit() {
     const fetchUser = async () => {
       const fetchedUser = await api.get(`/user/${id}`);
       setuser(fetchedUser.data);
-      console.log(fetchedUser.data);
     };
     fetchUser();
   }, [id]);

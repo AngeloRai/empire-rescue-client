@@ -70,10 +70,7 @@ function FacilityCreate() {
 
   const handleSubmit = async (values) => {
     try {
-      console.log("exams");
-      console.log(selectedExams);
-      console.log("specailties");
-      console.log(selectedSpecialties);
+
       await api.put(`/facility-update/${id}`, {
         specialties: selectedSpecialties.length ? selectedSpecialties : [0],
         exams: selectedExams.length ? selectedExams : [0],
@@ -83,7 +80,7 @@ function FacilityCreate() {
       console.log(err);
     }
     history.push("/estabelecimentos");
-    console.log(values);
+
   };
 
   return (

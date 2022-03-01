@@ -12,7 +12,6 @@ function UserPatientCreate() {
   const [newPatientToggle, setNewPatientToggle] = useState(true);
 
   async function handleSubmit(values) {
-    console.log(values, selectedUser);
     try {
       await api.post("/patient", { ...values, userId: selectedUser });
       histroy.push("/pacientes");

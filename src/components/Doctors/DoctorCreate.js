@@ -50,8 +50,6 @@ function DoctorCreate() {
         facilities: selectedFacilities,
         ...values,
       });
-      console.log(values);
-      console.log(doctor);
     } catch (err) {
       console.log(err);
     }

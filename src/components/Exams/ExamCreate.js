@@ -9,7 +9,6 @@ function ExamCreate() {
 const history = useHistory();
 
 async function handleSubmit(values) {
-  console.log(values);
   try {
     const exam = await api.post("/exam", values);
     console.log(exam);

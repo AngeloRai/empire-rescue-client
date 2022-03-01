@@ -23,7 +23,6 @@ function PatientList() {
     const sortedPatients = fetchedPatients.data.sort((a, b) =>
       a.name.localeCompare(b.name)
     );
-    console.log(sortedPatients);
     setPatients(sortedPatients);
   };
 

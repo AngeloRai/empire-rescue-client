@@ -13,7 +13,6 @@ function ExamEdit() {
     const fetchExam = async () => {
       const fetchedExam = await api.get(`/exam/${id}`);
       setExam(fetchedExam.data)
-      console.log(fetchedExam.data);
     };
     fetchExam();
   }, [id]);
