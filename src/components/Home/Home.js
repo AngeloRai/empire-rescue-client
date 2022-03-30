@@ -7,13 +7,11 @@ import gh from "../../images/gestao-hospitalar-450px.png";
 function Home() {
   return (
     <div className="w-100 h-100 row">
+      <br />
+      <small>
+        <strong>demo user</strong> email: teste@teste.com password: teste123
+      </small>
       <div className="row d-flex justify-content-center align-items-center gap-3">
-        <br />
-        <small>
-          <strong>demo user</strong> email: teste@teste.com password: teste123
-        </small>
-        <br />
-
         <img className="col-7 col-md-2" src={bombeiros} alt="firefighter" />
         <img className="col-7 col-md-2" src={cruz} alt="cross" />
         <img className="col-7 col-md-2" src={medical} alt="medical" />
